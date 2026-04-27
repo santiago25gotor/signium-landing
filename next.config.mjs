@@ -27,7 +27,7 @@ const csp = [
   "font-src 'self' data:",
   `connect-src 'self' ${apiUrl} https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.firebaseio.com https://*.googleapis.com https://prod.spline.design https://*.spline.design https://unpkg.com wss://*.firebaseio.com`,
   "frame-src 'self' https://signium-96988.firebaseapp.com",
-  "media-src 'self' https://res.cloudinary.com",
+  "media-src 'self' data: blob: https://res.cloudinary.com",
   "worker-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",
