@@ -21,11 +21,11 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "https://backendsignium-produc
 
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com",
+  "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://unpkg.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://res.cloudinary.com https://*.googleusercontent.com https://firebasestorage.googleapis.com",
   "font-src 'self' data:",
-  `connect-src 'self' ${apiUrl} https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.firebaseio.com https://*.googleapis.com https://prod.spline.design https://*.spline.design wss://*.firebaseio.com`,
+  `connect-src 'self' ${apiUrl} https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.firebaseio.com https://*.googleapis.com https://prod.spline.design https://*.spline.design https://unpkg.com wss://*.firebaseio.com`,
   "frame-src 'self' https://signium-96988.firebaseapp.com",
   "media-src 'self' https://res.cloudinary.com",
   "worker-src 'self' blob:",
