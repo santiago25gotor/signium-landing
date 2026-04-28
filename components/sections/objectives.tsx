@@ -13,7 +13,7 @@ export function Objectives() {
     <section className="py-24 md:py-32 container">
       <div className="max-w-2xl">
         <p className="text-sm font-semibold uppercase tracking-widest text-signium-blue">Objetivos</p>
-        <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
+        <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
           Para qué se construyó SIGNIUM.
         </h2>
       </div>

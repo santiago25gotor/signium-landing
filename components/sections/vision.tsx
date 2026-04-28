@@ -21,7 +21,7 @@ export function Vision() {
           <p className="text-sm font-semibold uppercase tracking-widest text-signium-blue">
             Visión y futuro
           </p>
-          <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
+          <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
             Hacia dónde va SIGNIUM.
           </h2>
           <p className="mt-5 text-slate-600 text-lg leading-relaxed">

@@ -39,7 +39,7 @@ export function ProblemSolution() {
                 El problema
               </span>
             </div>
-            <h3 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+            <h3 className="mt-4 text-2xl md:text-4xl font-bold tracking-tight text-slate-900">
               La comunicación todavía tiene muros invisibles.
             </h3>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">
@@ -59,7 +59,7 @@ export function ProblemSolution() {
                 Nuestra solución
               </span>
             </div>
-            <h3 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+            <h3 className="mt-4 text-2xl md:text-4xl font-bold tracking-tight text-slate-900">
               Un traductor con IA que cabe en un bolsillo.
             </h3>
             <p className="mt-4 text-slate-600 text-lg leading-relaxed">

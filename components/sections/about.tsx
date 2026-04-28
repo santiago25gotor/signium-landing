@@ -26,7 +26,7 @@ export function About() {
         <p className="text-sm font-semibold uppercase tracking-widest text-signium-blue">
           Sobre el proyecto
         </p>
-        <h2 className="mt-3 text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
+        <h2 className="mt-3 text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
           Un puente entre el signo y la voz.
         </h2>
         <p className="mt-5 text-slate-600 text-lg leading-relaxed">
