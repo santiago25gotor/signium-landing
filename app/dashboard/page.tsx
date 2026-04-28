@@ -130,10 +130,10 @@ export default function DashboardPage() {
       </header>
 
       {/* ── Contenido ── */}
-      <div className="container py-8 space-y-6">
+      <div className="container py-6 sm:py-8 space-y-5 sm:space-y-6">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">Tu panel</h1>
-          <p className="text-slate-600 mt-1 text-sm">
+          <h1 className="text-xl sm:text-3xl font-bold text-slate-900">Tu panel</h1>
+          <p className="text-slate-500 mt-1 text-sm">
             Visualiza tu impacto en la comunidad SIGNIUM.
           </p>
         </div>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
         ) : null}
 
         {/* Gráficos */}
-        <div className="grid gap-6 lg:grid-cols-2">
+        <div className="grid gap-5 sm:gap-6 lg:grid-cols-2">
           {isLoading ? (
             <>
               <ChartSkeleton title="Contribuciones por mes" />
