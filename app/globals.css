@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 @layer base {
+  /* Scroll suave al hacer clic en los links de anclaje (#about, etc.)
+     scroll-padding-top compensa la altura del navbar sticky (h-16 = 4rem)
+     para que el título de la sección no quede tapado. */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+
+  /* Focus visible para accesibilidad de teclado */
+  :focus-visible {
+    outline: 2px solid #0066FF;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
   :root {
     /* Tema CLARO inspirado en el logo SIGNIUM */
     --background: 210 100% 99%;          /* casi blanco con tinte cyan */
