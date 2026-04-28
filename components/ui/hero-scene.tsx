@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Spotlight } from "@/components/ui/spotlight";
-import { SplineScene, type Application as SplineApp } from "@/components/ui/splite";
+import { SplineScene, type Application as SplineApp } from "@/components/ui/spline";
 
 /**
  * Solo el lado derecho del hero (escena Spline + interacción de hover).

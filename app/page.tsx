@@ -1,12 +1,12 @@
-import { Navbar } from "@/components/sections/navbar";
-import { Hero } from "@/components/sections/hero";
-import { About } from "@/components/sections/about";
-import { ProblemSolution } from "@/components/sections/problem-solution";
-import { Objectives } from "@/components/sections/objectives";
-import { Technology } from "@/components/sections/technology";
-import { Team } from "@/components/sections/team";
-import { Vision } from "@/components/sections/vision";
-import { Footer } from "@/components/sections/footer";
+import { Navbar }          from "@/components/layout/navbar";
+import { Footer }          from "@/components/layout/footer";
+import { Hero }            from "@/components/home/hero";
+import { About }           from "@/components/home/about";
+import { ProblemSolution } from "@/components/home/problem-solution";
+import { Objectives }      from "@/components/home/objectives";
+import { Technology }      from "@/components/home/technology";
+import { Team }            from "@/components/home/team";
+import { Vision }          from "@/components/home/vision";
 
 export default function Page() {
   return (
