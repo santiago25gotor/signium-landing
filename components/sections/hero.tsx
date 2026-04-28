@@ -1,12 +1,13 @@
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-// ─── Visual estático (sin Spline, sin JS extra) ───────────────────────────────
-// Se renderiza en el servidor → carga instantánea, sin errores de canvas.
+// ─── Placeholder estático (se muestra mientras el robot 3D descarga) ──────────
+// Renderizado en el servidor → texto visible al instante, sin flash blanco.
 function HeroVisual() {
   return (
     <div className="relative flex items-center justify-center py-10 md:py-0 overflow-hidden">
-      {/* Patrón de puntos decorativo */}
+      {/* Patrón de puntos */}
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.15] pointer-events-none"
@@ -16,42 +17,32 @@ function HeroVisual() {
           backgroundSize: "22px 22px",
         }}
       />
-
-      {/* Anillos decorativos */}
+      {/* Anillos */}
       <div className="absolute w-72 h-72 rounded-full border border-white/10 pointer-events-none" />
       <div className="absolute w-48 h-48 rounded-full border border-white/20 pointer-events-none" />
 
-      {/* Contenido central */}
+      {/* Contenido */}
       <div className="relative z-10 flex flex-col items-center gap-5 px-6">
-        {/* Mano en lengua de signos */}
         <div className="relative">
           <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-white/20 border border-white/30 backdrop-blur-sm shadow-2xl flex items-center justify-center">
-            <span
-              className="text-6xl md:text-7xl select-none"
-              role="img"
-              aria-label="Seña 'te quiero' en LSE"
-            >
+            <span className="text-6xl md:text-7xl select-none" role="img" aria-label="Seña LSE">
               🤟
             </span>
           </div>
-          {/* Anillo pulsante sutil */}
           <div className="absolute -inset-2 rounded-[2rem] border border-white/15 animate-pulse pointer-events-none" />
         </div>
 
-        {/* Card de traducción */}
         <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-2xl px-5 py-3.5 shadow-xl w-56 md:w-64">
           <p className="text-[10px] font-semibold uppercase tracking-widest text-white/60">
-            Traduciendo ahora…
+            Cargando robot…
           </p>
-          <p className="text-white font-bold text-base mt-1">
-            "Hola, ¿cómo estás?"
-          </p>
-          <div className="mt-2.5 h-1.5 w-full bg-white/20 rounded-full overflow-hidden">
-            <div className="h-full w-4/5 bg-white/70 rounded-full" />
+          <div className="mt-2 flex gap-1.5 items-center">
+            <div className="h-2 w-2 rounded-full bg-white/60 animate-bounce [animation-delay:0ms]" />
+            <div className="h-2 w-2 rounded-full bg-white/60 animate-bounce [animation-delay:150ms]" />
+            <div className="h-2 w-2 rounded-full bg-white/60 animate-bounce [animation-delay:300ms]" />
           </div>
         </div>
 
-        {/* Badges de características */}
         <div className="flex flex-wrap justify-center gap-2">
           {[
             { emoji: "⚡", label: "<100 ms" },
@@ -71,6 +62,17 @@ function HeroVisual() {
     </div>
   );
 }
+
+// ─── Robot 3D — carga diferida, solo en el cliente ────────────────────────────
+// Mientras descarga (~400 KB de Spline) se muestra HeroVisual arriba.
+// Si Spline falla o tarda, el usuario siempre ve algo bonito.
+const HeroScene = dynamic(
+  () => import("@/components/ui/hero-scene").then((m) => m.HeroScene),
+  {
+    ssr: false,
+    loading: () => <HeroVisual />,
+  },
+);
 
 // ─── Hero principal ────────────────────────────────────────────────────────────
 export function Hero() {
@@ -152,8 +154,8 @@ export function Hero() {
             </div>
           </div>
 
-          {/* ── Derecha: visual estático ── */}
-          <HeroVisual />
+          {/* ── Derecha: robot 3D (lazy) con placeholder estático ── */}
+          <HeroScene />
         </div>
       </div>
     </section>
