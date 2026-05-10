@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
-import { getFirebaseAuth } from "@/lib/firebase";
+import { getFirebaseAuth, API_URL } from "@/lib/firebase";
 import { useAuth } from "@/lib/auth-context";
 import { AuthShell, Field, inputClass, btnPrimaryClass } from "@/components/ui/auth-shell";
 import { Eye, EyeOff } from "lucide-react";
@@ -54,7 +54,14 @@ export default function LoginPage() {
       }
       router.replace("/dashboard");
     } catch (e: any) {
-      setErr(parseFirebaseError(e?.code));
+      // Firebase devuelve auth/invalid-credential para AMBOS casos:
+      // contraseña incorrecta Y correo no registrado (protección anti-enumeración).
+      // Consultamos nuestro backend para distinguir cuál es cuál.
+      if (e?.code === "auth/invalid-credential" || e?.code === "auth/wrong-password") {
+        setErr(await resolveInvalidCredential(email.trim()));
+      } else {
+        setErr(parseFirebaseError(e?.code));
+      }
     } finally {
       setBusy(false);
     }
@@ -127,11 +134,36 @@ export default function LoginPage() {
   );
 }
 
+/**
+ * Firebase ahora devuelve auth/invalid-credential para AMBOS casos:
+ * contraseña incorrecta y correo no registrado. Consultamos el backend
+ * (que usa Firebase Admin SDK, exento de esta limitación) para distinguirlos.
+ */
+async function resolveInvalidCredential(email: string): Promise<string> {
+  try {
+    const apiBase = API_URL.endsWith("/") ? API_URL : API_URL + "/";
+    const res  = await fetch(`${apiBase}auth/check-email`, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    if (data.exists === false) {
+      return "No encontramos ninguna cuenta con ese correo.";
+    }
+    // exists === true  → el correo existe → es la contraseña
+    // exists === null  → error transitorio → mensaje neutro
+    return data.exists === true
+      ? "Contraseña incorrecta. Comprueba que la has escrito bien."
+      : "Credenciales incorrectas. Revisa el email y la contraseña.";
+  } catch {
+    // Si el backend no responde, mensaje genérico
+    return "Credenciales incorrectas. Revisa el email y la contraseña.";
+  }
+}
+
 function parseFirebaseError(code?: string): string {
   switch (code) {
-    case "auth/invalid-credential":
-    case "auth/wrong-password":
-      return "Credenciales incorrectas. Revisa el email y la contraseña.";
     case "auth/user-not-found":
       return "No encontramos ninguna cuenta con ese correo.";
     case "auth/invalid-email":
